@@ -1,8 +1,27 @@
 const path = require('path');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
+
+const fs = require('fs');
+
+function generateHtmlPlugins(templateDir) {
+  const templateFiles = fs.readdirSync(path.resolve(__dirname, templateDir));
+  return templateFiles.map(item => {
+    const parts = item.split('.');
+    const name = parts[0];
+    const extension = parts[1];
+    return new HtmlWebpackPlugin({
+      filename: `${name}.html`,
+      template: path.resolve(__dirname, `${templateDir}/${name}.${extension}`),
+      inject: true,
+    })
+  })
+}
+
+const htmlPlugins = generateHtmlPlugins('./src/html/views');
 
 module.exports = {
 	entry: [
@@ -26,7 +45,8 @@ module.exports = {
 			use: {
 			  loader: 'babel-loader',
 			  options: {
-				presets: 'env'
+				presets: 'env',
+				plugins: ["transform-class-properties"]
 			  }
 			}
 			},
@@ -52,6 +72,11 @@ module.exports = {
 			  ]
 			})
 			},
+			{
+				test: /\.html$/,
+				include: path.resolve(__dirname, 'src/html/includes'),
+				use: ['raw-loader']
+			}
 		]
 	},
 	plugins: [
@@ -59,37 +84,21 @@ module.exports = {
 			filename: './css/style.bundle.css',
 			allChunks: true,
 		}),
-		new HtmlWebpackPlugin({
-			filename: 'index.html',
-			template: 'src/index.html',
-			inject: true
-		}),
-		new HtmlWebpackPlugin({
-			filename: 'index2.html',
-			template: 'src/index2.html'
-		}),
 		new CopyWebpackPlugin([{
 				from: './src/assets',
 				to: './assets'
 			},
-			{
-				from: './src/favicon.ico',
-				to: './favicon.ico'
-			},
-			{
-				from: './src/404.html',
-				to: './404.html'
-			} 
 		]),
 		new ImageminPlugin({
 			disable: process.env.NODE_ENV !== 'production', // Disable during development
+			test: /\.(jpe?g|png|gif|svg)$/i ,
 			pngquant: {
 				quality: '95-100'
 			}
 		}),
 		new CopyWebpackPlugin([{
-			  from: 'src/assets/img/'
+			from: 'src/assets/img/',
+			to:  'src/assets/img/'
 		}]),
-		new ImageminPlugin({ test: /\.(jpe?g|png|gif|svg)$/i })
-	]
+	].concat(htmlPlugins)
 };

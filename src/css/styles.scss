@@ -95,6 +95,154 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+/* variables */
+
+$primary-color: #33a9ff; //blue
+$light-color: #ffffff; //white
+$dark-color: #163041; //black
+$marine-color: #042f62; //dark-blue
+$metallic-blue: #4f6d91; //metallic-blue
+
+$medium-size: 1440px;
+$tablet-size: 1024px;
+$small-size: 960px;
+$phone-size: 767px;
+
+
+@function letter-spacing($n) {
+	@return ($n / 1000)+em;
+}
+
+@function font-size($n) {
+	@return ($n / 16px) + rem;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+input[type=search] {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+	line-height: normal;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+    position: relative;
+    height: 100%;
+	font-family: 'Montserrat', sans-serif;
+	font-size: font-size(18px);
+	color: #333333;
+}
+
+ul {
+	list-style-type: none;
+	padding-left: 0;
+}
+
+a {
+	display: inline-block;
+	text-decoration: none;
+	color: currentColor;
+	&:active, &:visited, &:hover {
+		text-decoration: none;
+	}
+}
+
+.wrapper {
+	padding: 0 calc(50% - 560px);
+	max-width: 100%;
+	@media only screen and (max-width: $medium-size) {
+	    padding: 0 2rem;
+	}
+	@media only screen and (max-width: $phone-size) {
+	    padding: 0 1rem;
+	}
+}
+
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+/*
+ * Hide visually and from screen readers
+ */
+
+ .hidden {
+    display: none !important;
+}
+
+/*
+ * Hide only visually, but have it available for screen readers:
+ * http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+ */
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+/*
+ * Extends the .visuallyhidden class to allow the element
+ * to be focusable when navigated to via the keyboard:
+ * https://www.drupal.org/node/897638
+ */
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+/*
+ * Hide visually and from screen readers, but maintain layout
+ */
+
+.invisible {
+    visibility: hidden;
+}
+
+/*
+ * Clearfix: contain floats
+ *
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    `contenteditable` attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that receive the `clearfix` class.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+
+.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+
 
 
 
@@ -194,4 +342,19 @@ textarea {
     }
 }
 
+#RU-MOS:hover {
+	fill: green;
+	cursor: pointer;
+	#RU-MOW {
+		fill: green;
+	}
+}
 
+
+#RU-LEN:hover {
+	fill: green;
+	cursor: pointer;
+	#RU-SPE {
+		fill: green;
+	}
+}

@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="format-detection" content="telephone=no">
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:300,500,600,800" rel="stylesheet">
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
+	</head>
+    </head>
+	<body>
+		<div class="body js-body">
+			<%= _.template(require('./../includes/svg.html'))() %>
+			<%= _.template(require('./../includes/header.html'))() %>
+			<main>
+				Body...
+			</main>
+			<%= _.template(require('./../includes/footer.html'))() %>
+		</div>
+    </body>
+</html>
